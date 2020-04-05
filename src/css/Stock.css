@@ -1,0 +1,31 @@
+.title {
+	font: 'lato' sans-serif;
+	margin-left: 5%;
+}
+.filter-title{
+	font: 'lato' sans-serif;
+	font-size: large;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.more-filter{
+	text-decoration: underline;
+	margin-top: 20px;
+}
+.filter{
+	margin: 0px;
+	margin-bottom: 5px;
+
+	font: 'lato' sans-serif;
+	font-size: medium;
+	border-bottom: 2px solid black;
+	line-height: 1.8;
+}
+.photo {
+	height: 180px;
+	width: 200px; 
+}
+.spaceBetweenImage{
+	padding: 10px;
+}
+

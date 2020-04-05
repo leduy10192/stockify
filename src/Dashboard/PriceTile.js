@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled, { css } from 'styled-components';
 import { SelectableTile } from "../Shared/Tile";
 import { fontSize3, fontSizeBig, greenBoxShadow } from "../Shared/Styles";
 import { StockHeaderGridStyled } from '../Settings/StockHeaderGrid';
 import {AppContext} from "../App/AppProvider";
+import Quote from "../Dashboard/DashboardWrapper/Quote"
 
 const JustifyRight = styled.div`
     justify-self: right;
@@ -46,7 +47,7 @@ function ChangePercent({ stockChange }) {
     )
 }
 
-function PriceTile({ sym, stockPrice, stockChange, currentFavorite, setCurrentFavorite}) {
+function PriceTileA({ sym, stockPrice, stockChange, currentFavorite, setCurrentFavorite}) {
     return (
         <PriceTileStyled onClick={setCurrentFavorite} currentFavorite = {currentFavorite}>
             <StockHeaderGridStyled>
@@ -72,23 +73,85 @@ function PriceTileCompact({ sym, stockPrice, stockChange, currentFavorite, setCu
     )
 }
 
-export default function ({ price, index }) {
-    let sym = price['Ticker']
-    let stockPrice = price['Price']
-    let stockChange = price['ChangePct']
-    let TileClass = index < 5 ? PriceTile : PriceTileCompact;
-    return (
-        <AppContext.Consumer>
-            {({ currentFavorite, setCurrentFavorite}) => 
-                <TileClass 
-                    sym={sym} stockPrice={stockPrice} 
-                    stockChange={stockChange} 
-                    currentFavorite= {currentFavorite === sym }
-                    setCurrentFavorite = {() => setCurrentFavorite(sym)}>
-                </TileClass >
-            }
+let path;
 
-        </AppContext.Consumer>
-    )
+class PriceTile extends Component {
+    constructor(props) {
+        super(props);
+		path = this.props.history;
+    }
+    
+    onSubmit(metaData){
+        console.log("Path1",path)
+        if(path == undefined){
+            return;
+        }
+		path.push({
+			pathname : '/Quote',
+			metaData
+        })
+		//pushToNave(metaData);
+	}
+
+    render(){
+        console.log("Path",path)
+        let sym = this.props.price['Ticker']
+        let stockPrice = this.props.price['Price']
+        let stockChange = this.props.price['ChangePct']
+        let TileClass = this.props.index < 5 ? PriceTileA : PriceTileCompact;
+        return (
+            <AppContext.Consumer>
+                {({ currentFavorite, setCurrentFavorite, stockList}) => {
+                    const tempt = stockList;
+                    return(
+                        <TileClass 
+                            sym={sym} stockPrice={stockPrice}
+                            stockChange={stockChange} 
+                            currentFavorite= {currentFavorite === sym }
+                            setCurrentFavorite = {
+                                () => {
+                                    setCurrentFavorite(sym)
+                                    this.onSubmit(tempt[sym])
+                                    }
+                                }
+                            >
+                        </TileClass >
+                        )
+                    }
+                }
+    
+            </AppContext.Consumer>
+        )
+    }
 }
+export default PriceTile;
+// export default function ({ price, index }) {
+//     let sym = price['Ticker']
+//     let stockPrice = price['Price']
+//     let stockChange = price['ChangePct']
+//     let TileClass = index < 5 ? PriceTile : PriceTileCompact;
 
+//     return (
+//         <AppContext.Consumer>
+//             {({ currentFavorite, setCurrentFavorite, stockList}) => {
+//                 const tempt = stockList;
+//                 return(
+//                     <TileClass 
+//                         sym={sym} stockPrice={stockPrice} 
+//                         stockChange={stockChange} 
+//                         currentFavorite= {currentFavorite === sym }
+//                         setCurrentFavorite = {
+//                             () => {
+//                                 setCurrentFavorite(sym)
+//                                 onSubmit(tempt[sym])
+//                                 }
+//                             }
+//                         >
+//                     </TileClass >
+//                     )
+//                 }
+//             }
+
+//         </AppContext.Consumer>
+//     )
+// }

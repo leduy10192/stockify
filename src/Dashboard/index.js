@@ -5,6 +5,16 @@ import PriceGrid from './PriceGrid'
 import StockSpotlight from './StockSpotlight';
 import StockChart from './StockChart';
 
+import Header from '../Dashboard/DashboardWrapper/Header';
+import Stock from '../Dashboard/DashboardWrapper/Stock';
+import Quote from '../Dashboard/DashboardWrapper/./Quote';
+import Footer from '../Dashboard/DashboardWrapper/Footer';
+import FutureGrowth from '../Dashboard/DashboardWrapper/FutureGrowth';
+import Valuation from '../Dashboard/DashboardWrapper/Valuation';
+import FinancialHealth from '../Dashboard/DashboardWrapper/FinancialHealth';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 const ChartGrid = styled.div`
     display: grid;
     margin-top: 20px;
@@ -13,10 +23,26 @@ const ChartGrid = styled.div`
 `
 export default function (){
     return <Page name="dashboard">
+
+        <Router>
+          <div data-spy="scroll" >
+            <Header />
+            <Switch>
+              {/* <Route path="/" exact component={Stock} /> */}
+              <Route path="/Quote" component={Quote} />
+              <Route path="/FutureGrowth" component={FutureGrowth} />
+              <Route path="/Valuation" component={Valuation} />
+              <Route path="/FinancialHealth" component={FinancialHealth} />
+            </Switch>
+            
+          </div>
+        </Router>
+
         <PriceGrid />
         <ChartGrid>
             <StockSpotlight/>
             <StockChart />
         </ChartGrid>
+        <Footer />
     </Page>
 }
