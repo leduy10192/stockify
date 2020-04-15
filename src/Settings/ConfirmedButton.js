@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { AppContext } from "../App/AppProvider";
 import {fontSize1, blueBoxShadow, color3} from "../Shared/Styles";
+import {Link} from 'react-router-dom';
 
 const ConfirmButtonStyled = styled.div`
     margin: 20px;
@@ -22,6 +23,7 @@ export const CenterDiv = styled.div`
 
 export default function () {
     return (
+        <Link to= {{pathname: "/Quote"}}>
         <AppContext.Consumer>
             {
                 ({ confirmFavorites }) =>
@@ -32,5 +34,6 @@ export default function () {
                     </CenterDiv>
             }
         </AppContext.Consumer>
+        </Link>
     )
 }

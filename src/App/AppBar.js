@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Logo from '../assets/images/myLogo.png';
 import { AppContext } from './AppProvider';
+import {Link} from 'react-router-dom';
 
 const Bar = styled.div`
     display: grid;
@@ -29,6 +30,7 @@ function toProperCase(lower) {
 }
 function ControlButton({ name }) {
     return (
+        <Link to= {{pathname: "/Settings"}}>
         <AppContext.Consumer>
             {({page, setPage})=>(
             <ControlButtonElem 
@@ -38,6 +40,7 @@ function ControlButton({ name }) {
                 {toProperCase(name)}
             </ControlButtonElem>)}
         </AppContext.Consumer>
+        </Link>
     )
 }
 export default function () {

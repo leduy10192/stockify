@@ -36,7 +36,7 @@ class App extends Component {
   render() {
     return (
 
-
+      <Router>
 
       <AppLayout>
 
@@ -60,9 +60,24 @@ class App extends Component {
             <Settings />
             <Dashboard />
           </Content>
-        </AppProvider>
+
+
+    <div data-spy="scroll" >
+    {/* <Header /> */}
+    <Switch>
+      <Route path="/" exact component={Quote} />
+      <Route path="/Quote" component={Quote} />
+      <Route path="/FutureGrowth" component={FutureGrowth} />
+      <Route path="/Valuation" component={Valuation} />
+      <Route path="/FinancialHealth" component={FinancialHealth} />
+    </Switch>
+    <Footer />
+    </div>
+    </AppProvider>
         {/* <StockCharts /> */}
       </AppLayout>
+    </Router>
+
     );
   }
 }

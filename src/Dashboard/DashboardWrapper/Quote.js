@@ -5,6 +5,8 @@ import '../../css/EachStock.css';
 import KeyMetric from './KeyMetric';
 import NavStock from './NavStock';
 import '../../css/Stock.css';
+import {AppContext} from "../../App/AppProvider";
+import Content from '../../Shared/Content'
 let arrayData = {};
 class EachStock extends Component {
     constructor (props) {
@@ -12,7 +14,7 @@ class EachStock extends Component {
         arrayData = this.props.history.location.metaData
                  == undefined ?this.props.location.state: this.props.history.location.metaData;   
         this.state = {
-            arrayData : {...this.props.location.state}
+            arrayData : 0
         }
     }
 
@@ -23,8 +25,8 @@ class EachStock extends Component {
     }
 
     componentDidUpdate(){
-        if(this.state.arrayData !== this.props.history.location.metaData){
-            console.log("State", this.state.arrayData["Ticker"],"MetaArray", this.props.history.location.metaData["Ticker"])
+        if(this.state.arrayData && this.state.arrayData !== this.props.history.location.metaData){
+            // console.log("State", this.state.arrayData["Ticker"],"MetaArray", this.props.history.location.metaData["Ticker"])
             this.setState({
                 arrayData: this.props.history.location.metaData
               })
@@ -34,16 +36,32 @@ class EachStock extends Component {
     render(){
         console.log( "this is data in Stock" + JSON.stringify(arrayData));
         return(
-            <div>
-                <h5 className ="title">{this.state.arrayData.Name}</h5>
+            <Content>
+            <AppContext.Consumer>
+                {({ currentFavorite, stockList}) => {
+                    console.log("Curr1,", currentFavorite)
+                    let metaData = currentFavorite? stockList[currentFavorite]: []
+                    console.log("META",metaData)
+                    return(this.state.arrayData ? <div>
+                {/* <h5 className ="title">{this.state.arrayData.Name}</h5> */}
                 <NavStock { ...this.state.arrayData}></NavStock>
                 <Container id = "layout">
                     <Row id ="fix">
-                        
-                        <Col xs={6}><KeyMetric {...this.state.arrayData}></KeyMetric></Col>
+                        <Col ><KeyMetric {...this.state.arrayData}></KeyMetric></Col>
+                    </Row>
+                </Container>
+            </div>: <div>
+                {/* <h5 className ="title">{metaData.Name}</h5> */}
+                <   NavStock { ...metaData}></NavStock>
+                    <Container id = "layout">
+                    <Row id ="fix">
+                        <Col><KeyMetric {...metaData}></KeyMetric></Col>
                     </Row>
                 </Container>
             </div>
+                    )}}
+            </AppContext.Consumer>
+            </Content>
         );
     }
 }
