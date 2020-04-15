@@ -38,6 +38,7 @@ export class AppProvider extends React.Component {
         this.fetchStockData();
     }
 
+
     //Sample Axios fetch
     fetchStockData = () => {
         const ticker = this.state.currentFavorite
@@ -157,6 +158,8 @@ export class AppProvider extends React.Component {
         });
 
     }
+
+
 
     setCurrentFavorite = (sym) => {
 

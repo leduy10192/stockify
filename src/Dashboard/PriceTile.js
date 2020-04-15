@@ -6,6 +6,8 @@ import { StockHeaderGridStyled } from '../Settings/StockHeaderGrid';
 import {AppContext} from "../App/AppProvider";
 import Quote from "../Dashboard/DashboardWrapper/Quote"
 
+import { withRouter } from "react-router";
+
 const JustifyRight = styled.div`
     justify-self: right;
 `
@@ -91,7 +93,8 @@ class PriceTile extends Component {
 			metaData
         })
 		//pushToNave(metaData);
-	}
+    }
+    
 
     render(){
         console.log("Path",path)
@@ -109,7 +112,7 @@ class PriceTile extends Component {
                             stockChange={stockChange} 
                             currentFavorite= {currentFavorite === sym }
                             setCurrentFavorite = {
-                                () => {
+                                () => { 
                                     setCurrentFavorite(sym)
                                     this.onSubmit(tempt[sym])
                                     }
@@ -124,7 +127,7 @@ class PriceTile extends Component {
         )
     }
 }
-export default PriceTile;
+export default withRouter(PriceTile);
 // export default function ({ price, index }) {
 //     let sym = price['Ticker']
 //     let stockPrice = price['Price']

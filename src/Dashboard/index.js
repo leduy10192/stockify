@@ -22,27 +22,29 @@ const ChartGrid = styled.div`
     grid-template-columns: 1fr 3fr
 `
 export default function (){
-    return <Page name="dashboard">
-
-        <Router>
-          <div data-spy="scroll" >
-            <Header />
-            <Switch>
-              {/* <Route path="/" exact component={Stock} /> */}
-              <Route path="/Quote" component={Quote} />
-              <Route path="/FutureGrowth" component={FutureGrowth} />
-              <Route path="/Valuation" component={Valuation} />
-              <Route path="/FinancialHealth" component={FinancialHealth} />
-            </Switch>
-            
-          </div>
-        </Router>
+    return (
+      <Router>
+    <Page name="dashboard">
 
         <PriceGrid />
         <ChartGrid>
             <StockSpotlight/>
             <StockChart />
         </ChartGrid>
-        <Footer />
+        
     </Page>
+
+    <div data-spy="scroll" >
+            <Header />
+            <Switch>
+              {/* <Route path="/" exact component={Quote} /> */}
+              <Route path="/Quote" component={Quote} />
+              <Route path="/FutureGrowth" component={FutureGrowth} />
+              <Route path="/Valuation" component={Valuation} />
+              <Route path="/FinancialHealth" component={FinancialHealth} />
+            </Switch>
+            <Footer />
+          </div>
+    </Router>
+    )
 }
