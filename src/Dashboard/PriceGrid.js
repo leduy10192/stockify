@@ -15,13 +15,16 @@ const PriceGrid = styled.div`
 export default function () {
     return (
         <AppContext.Consumer>
-            {({prices}) => (
+            {({prices, currentFavorite}) => {
+                return(
+                currentFavorite?    
                 <PriceGrid>
                     {prices.map((price, index) => (<
                         div><PriceTile index={index} price={price} /></div>
                     ))}
                 </PriceGrid>
-            )}
+                :<h1> Please choose at least one company </h1>
+            )}}
         </AppContext.Consumer>
     );
 }

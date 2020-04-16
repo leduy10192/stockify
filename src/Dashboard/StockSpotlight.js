@@ -15,7 +15,7 @@ export default function (){
         return( currentFavorite? <Tile >
           <SpotlightName> {stockList[currentFavorite]["Name"]} </SpotlightName>
           <StockImage spotlight stock={stockList[currentFavorite]}/>
-        </Tile>:  <div> Please choose at least one favorite</div>
+        </Tile>:  <div></div>
         )}}
     </AppContext.Consumer>
   )

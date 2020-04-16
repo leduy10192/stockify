@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import _ from 'lodash';
+import {Redirect} from 'react-router-dom';
 
 import {parseTimeSeriesData} from '../api/index'
 
@@ -19,7 +20,7 @@ export class AppProvider extends React.Component {
             prices: [],
             historical: [],
             page: 'dashboard',
-            favorites: ["AAPL"],
+            favorites: [],
             // ...this.savedSettings(),
             setPage: this.setPage,
             addStock: this.addStock,
@@ -28,7 +29,7 @@ export class AppProvider extends React.Component {
             confirmFavorites: this.confirmFavorites,
             setCurrentFavorite: this.setCurrentFavorite,
             setFilteredStocks: this.setFilteredStocks,
-            currentFavorite: "AAPL"
+            currentFavorite: null
         }
     }
 
@@ -215,8 +216,13 @@ export class AppProvider extends React.Component {
 
     
     render() {
+        let redirect = null
+        if(!this.state.currentFavorite){
+            redirect = <Redirect to="/Settings"/>
+        }
         return (
             <AppContext.Provider value={this.state}>
+                {redirect}
                 {this.props.children}
             </AppContext.Provider>
         )
