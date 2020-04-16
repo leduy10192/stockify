@@ -11,12 +11,12 @@ const SpotlightName = styled.h2`
 export default function (){
   return (
     <AppContext.Consumer>
-      {({currentFavorite, stockList}) =>
-        <Tile >
+      {({currentFavorite, stockList}) =>{
+        return( currentFavorite? <Tile >
           <SpotlightName> {stockList[currentFavorite]["Name"]} </SpotlightName>
           <StockImage spotlight stock={stockList[currentFavorite]}/>
-        </Tile>
-      }
+        </Tile>:  <div> Please choose at least one favorite</div>
+        )}}
     </AppContext.Consumer>
   )
 }
